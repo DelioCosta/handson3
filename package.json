@@ -1,0 +1,22 @@
+{
+    "name": "hello-wold",
+    "version": "1.0.0",
+    "description": "Projeto Hello World em nodeJS utilizando NPM",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [
+        "nodejs",
+        "http"
+    ],
+    "author": "Délio <deliocqcosta@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.1",
+        "insomnia-plugin-documenter": "^2.0.0",
+        "mysql2": "^2.3.3",
+        "query-string": "^7.1.1",
+        "sequelize": "^6.19.2"
+    }
+}
