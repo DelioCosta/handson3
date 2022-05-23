@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
 const db = require("../database");
-const Psicologo = require("./");
-const Paciente = require("./");
+const Psicologo = require("./Psicologo");
+const Paciente = require("./Paciente");
 
 const Atendimento = db.define(
   "Atendimento",
