@@ -1,4 +1,4 @@
-const Atendimento = require("../models/Atendimento");
+const { Atendimento } = require("../models/");
 
 const AtendimentoController = {
     
