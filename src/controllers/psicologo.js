@@ -5,7 +5,7 @@ const PsicologoController = {
     // Listar todos
     index: async (req, res) => {
         const listaDePsicologos = await Psicologo.findAll();
-        res.json([listaDePsicologos]);
+        res.json(listaDePsicologos);
     },
 
     // Criação de um novo atendimento

@@ -1,11 +1,12 @@
-const { Atendimento } = require("../models/");
+const { Atendimento, Paciente, Psicologo } = require("../models/");
+
 
 const AtendimentoController = {
     
     // Listar todos
     index: async (req, res) => {
-        const listaDeAtendimentos = await Atendimento.findAll();
-        res.json([listaDeAtendimentos]);
+        const listaDeAtendimentos = await Atendimento.findAll({ include: [Paciente, Psicologo] });
+        res.json(listaDeAtendimentos);
     },
 
     // Criação de um novo atendimento
@@ -27,7 +28,7 @@ const AtendimentoController = {
     show: async (req, res) => {
         const { id } = req.params;
     
-        const atendimento = await Atendimento.findByPk(id);
+        const atendimento = await Atendimento.findByPk( id, { include: [Paciente, Psicologo] });
 
         if (atendimento) {
             return res.json(atendimento);

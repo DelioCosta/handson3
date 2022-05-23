@@ -5,7 +5,7 @@ const PacienteController = {
     // Listar todos
     index: async (req, res) => {
         const listaDePacientes = await Paciente.findAll();
-        res.json([listaDePacientes]);
+        res.json(listaDePacientes);
     },
 
     // Criação de um novo atendimento
