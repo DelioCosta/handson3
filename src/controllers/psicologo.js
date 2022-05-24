@@ -20,7 +20,7 @@ const PsicologoController = {
             apresentacao
         });
 
-        res.json(novoPsicologo);
+        res.status(201).json(novoPsicologo);
     },
 
     // Obter item específico
@@ -34,7 +34,7 @@ const PsicologoController = {
         };
 
         res.status(404).json({
-            message: "Psicologo não encontrado"
+            message: "Id não encontrado"
         });
     },
 
@@ -56,7 +56,7 @@ const PsicologoController = {
             }
         });
     
-        res.json("Psicologo atualizado");
+        res.json("Id atualizado");
     },
 
     // Remoção
