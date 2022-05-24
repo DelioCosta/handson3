@@ -9,12 +9,14 @@ const routes = express.Router();
 const AtendimentoController = require("../controllers/atendimento");
 const PacienteController = require("../controllers/paciente");
 const PsicologosController = require("../controllers/psicologo");
+const AuthController = require("../controllers/authController");
 
 // faz a requisição dos validators
 
 const authAtendimentoValidator = require("../validators/auth/atendimento");
 const authPsicologoValidator = require("../validators/auth/psicologo");
 const authPacienteValidator = require("../validators/auth/paciente");
+const authLoginValidator = require("../validators/auth/login");
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Rotas de Atendimento.js
@@ -52,6 +54,9 @@ routes.put(
 routes.delete("/psicologo/:id", PsicologosController.destroy);
 
 //-------------------------------------------------------------------------------------------------------------------------
+//Rota de login
+routes.post("/login", authLoginValidator, AuthController.login)
+
 
 // Necessário para que o arquivo do controller receba as rotas
 module.exports = routes;
