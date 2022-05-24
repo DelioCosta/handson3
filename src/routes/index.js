@@ -10,42 +10,39 @@ const AtendimentoController = require('../controllers/atendimento');
 const PacienteController = require('../controllers/paciente');
 const PsicologosController = require('../controllers/psicologo');
 
+// faz a requisição dos validators
+
+const authAtendimentoValidator = require('../validators/auth/atendimento');
+const authPsicologoValidator = require('../validators/auth/psicologo');
+const authPacienteValidator = require('../validators/auth/paciente')
+
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Rotas de Atendimento.js
 
 routes.get("/atendimento", AtendimentoController.index);
-routes.post("/atendimento", AtendimentoController.store);
+routes.post("/atendimento", authAtendimentoValidator, AtendimentoController.store);
 routes.get("/atendimento/:id", AtendimentoController.show);
-routes.put("/atendimento/:id", AtendimentoController.update);
+routes.put("/atendimento/:id", authAtendimentoValidator, AtendimentoController.update);
 routes.delete("/atendimento/:id", AtendimentoController.destroy);
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Rotas do paciente.js
 
 routes.get("/paciente", PacienteController.index);
-routes.post("/paciente", PacienteController.store);
+routes.post("/paciente", authPacienteValidator, PacienteController.store);
 routes.get("/paciente/:id", PacienteController.show);
-routes.put("/paciente/:id", PacienteController.update);
+routes.put("/paciente/:id", authPacienteValidator, PacienteController.update);
 routes.delete("/paciente/:id", PacienteController.destroy);
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Rotas do psicologo.js
 
 routes.get("/psicologo", PsicologosController.index);
-routes.post("/psicologo", PsicologosController.store);
+routes.post("/psicologo", authPsicologoValidator, PsicologosController.store);
 routes.get("/psicologo/:id", PsicologosController.show);
-routes.put("/psicologo/:id", PsicologosController.update);
+routes.put("/psicologo/:id", authPsicologoValidator, PsicologosController.update);
 routes.delete("/psicologo/:id", PsicologosController.destroy);
-
-//-------------------------------------------------------------------------------------------------------------------------
-// Rotas da reserva.js
-
-// routes.get("/reservas", ReservasController.index);
-// routes.post("/reservas", ReservasController.store);
-// routes.get("/reservas/:id", ReservasController.show);
-// routes.put("/reservas/:id", ReservasController.update);
-// routes.delete("/reservas/:id", ReservasController.destroy);
 
 //-------------------------------------------------------------------------------------------------------------------------
 

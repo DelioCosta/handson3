@@ -13,6 +13,7 @@ const AtendimentoController = {
     store: async (req, res) => {
         const { id, data_atendimento, observacao, psicologo_id, paciente_id } = req.body;
 
+       try {
         const novoAtendimento = await Atendimento.create({ 
             id,
             data_atendimento, 
@@ -22,6 +23,13 @@ const AtendimentoController = {
         });
 
         res.json(novoAtendimento);
+           
+       } catch (error) {
+        console.log(error.message);
+        res
+          .status(500)
+          .json({ error: "Oops, tivemos um erro, tente novamente." });
+       } 
     },
 
     // Obter item específico
@@ -35,7 +43,7 @@ const AtendimentoController = {
         };
 
         res.status(404).json({
-            message: "Atendimento não encontrado"
+            message: "Id não encontrado"
         });
     },
 

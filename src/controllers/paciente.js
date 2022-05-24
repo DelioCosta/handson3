@@ -33,7 +33,7 @@ const PacienteController = {
         };
 
         res.status(404).json({
-            message: "Paciente não encontrado"
+            message: "Id não encontrado"
         });
     },
 
