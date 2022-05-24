@@ -1,74 +1,82 @@
 const { Paciente } = require("../models/");
 
 const PacienteController = {
-    
-    // Listar todos
-    index: async (req, res) => {
-        const listaDePacientes = await Paciente.findAll();
-        res.json(listaDePacientes);
-    },
+  // Listar todos
+  index: async (req, res) => {
+    const listaDePacientes = await Paciente.findAll();
+    res.json(listaDePacientes);
+  },
 
-    // Criação de um novo atendimento
-    store: async (req, res) => {
-        const { id, nome, email, idade } = req.body;
+  // Criação de um novo atendimento
+  store: async (req, res) => {
+    const { id, nome, email, idade } = req.body;
 
-        const novoPaciente = await Paciente.create({ 
-            id,
-            nome, 
-            email, 
-            idade
-        });
+    const novoPaciente = await Paciente.create({
+      id,
+      nome,
+      email,
+      idade,
+    });
 
-        res.json(novoPaciente);
-    },
+    res.json(novoPaciente);
+  },
 
-    // Obter item específico
-    show: async (req, res) => {
-        const { id } = req.params;
-    
-        const paciente = await Paciente.findByPk(id);
+  // Obter item específico
+  show: async (req, res) => {
+    const { id } = req.params;
 
-        if (paciente) {
-            return res.json(paciente);
-        };
+    const paciente = await Paciente.findByPk(id);
 
-        res.status(404).json({
-            message: "Id não encontrado"
-        });
-    },
-
-    // Atualização
-    update: async (req, res) => {
-        const { id } = req.params;
-        const { nome, email, idade } = req.body;
-
-        const pacienteAtualizado = await Paciente.update({ 
-            id,
-            nome, 
-            email, 
-            idade 
-        },
-        {
-            where: {
-                id,
-            }
-        });
-    
-        res.json("Paciente atualizado");
-    },
-
-    // Remoção
-    destroy: async (req, res) => {
-        const { id } = req.params;
-        if (!id) return res.status(404).json("Id não encontrado")
-        await Paciente.destroy({
-            where:{
-                id,
-            }
-        });
-        res.status(204).send("");
+    if (paciente) {
+      return res.json(paciente);
     }
+
+    res.status(404).json({
+      message: "Id não encontrado",
+    });
+  },
+
+  // Atualização
+  update: async (req, res) => {
+    const { id } = req.params;
+    const { nome, email, idade } = req.body;
+
+    const pacienteAtualizado = await Paciente.update(
+      {
+        id,
+        nome,
+        email,
+        idade,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    res.json("Paciente atualizado");
+  },
+
+  // Remoção
+  destroy: async (req, res) => {
+    const { id } = req.params;
+    const paciente = await Paciente.findByPk(id);
+
+    if (!paciente) {
+      res.status(404).json({
+        message: "Id não encontrado",
+      });
+    } else {
+      await Paciente.destroy({
+        where: {
+          id,
+        },
+      });
+
+      res.status(204).send("");
+    }
+  },
 };
-    
 
 module.exports = PacienteController;
