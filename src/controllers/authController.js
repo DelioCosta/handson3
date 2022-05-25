@@ -1,5 +1,7 @@
 const { Psicologo } = require('../models');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const secret = require('../configs/secret');
 
 const AuthController = {
     login: async (req, res) => {
@@ -15,7 +17,13 @@ const AuthController = {
             return res.status(401).json('E-mail ou senha inválido, verifique e tente novamente”');
         }
 
-        return res.json('Logado');
+        //cria a const user com as informações do usuário, porém sem a senha 
+        const { senha: _senha, ...user} = usuario;
+
+        //geração do token jwt
+        const token = jwt.sign(user, secret.key);
+        
+        return res.json({token, user});
     }
 }
 
