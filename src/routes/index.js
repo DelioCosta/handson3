@@ -53,10 +53,10 @@ routes.post("/login", authLoginValidator, AuthController.login);
 
 //-------------------------------------------------------------------------------------------------------------------------
 //Rota de dashboards
-routes.post("/dashboard/pacientes", DashboardController.pacientes);
-routes.post("/dashboard/atendimentos", DashboardController.atendimentos);
-routes.post("/dashboard/psicologos", DashboardController.psicologos);
-routes.post("/dashboard/media", DashboardController.media);
+routes.get("/dashboard/pacientes", DashboardController.pacientes);
+routes.get("/dashboard/atendimentos", DashboardController.atendimentos);
+routes.get("/dashboard/psicologos", DashboardController.psicologos);
+routes.get("/dashboard/media", DashboardController.media);
 
 
 // Necessário para que o arquivo do controller receba as rotas
