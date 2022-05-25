@@ -11,15 +11,19 @@ const AtendimentoController = {
 
   // Criação de um novo atendimento
   store: async (req, res) => {
-    const { id, data_atendimento, observacao, psicologo_id, paciente_id } =
+    //console.log(req.auth);
+    const { id, data_atendimento, observacao, paciente_id } =
       req.body;
+
+    //pega o id do usuario baseado no token
+    const id_Usuario = req.auth.id;
 
     try {
       const novoAtendimento = await Atendimento.create({
         id,
         data_atendimento,
         observacao,
-        psicologo_id,
+        psicologo_id: id_Usuario,
         paciente_id,
       });
 
