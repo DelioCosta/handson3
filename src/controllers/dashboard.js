@@ -26,7 +26,7 @@ const DashboardController = {
 
         const psicologos = await Psicologo.findAndCountAll();
         const numeroPsicologos = psicologos.count;
-        
+
         const media = numeroAtendimentos/numeroPsicologos;
         res.json(media);
     }

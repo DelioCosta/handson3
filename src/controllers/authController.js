@@ -23,7 +23,7 @@ const AuthController = {
         //geração do token jwt
         const token = jwt.sign(user, secret.key);
         
-        return res.json({token, user});
+        return res.json({token});
     }
 }
 
