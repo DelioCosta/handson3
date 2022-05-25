@@ -10,6 +10,7 @@ const AtendimentoController = require("../controllers/atendimento");
 const PacienteController = require("../controllers/paciente");
 const PsicologosController = require("../controllers/psicologo");
 const AuthController = require("../controllers/authController");
+const DashboardController = require("../controllers/dashboard");
 
 
 // faz a requisição dos validators
@@ -47,7 +48,15 @@ routes.delete("/psicologo/:id", PsicologosController.destroy);
 
 //-------------------------------------------------------------------------------------------------------------------------
 //Rota de login
-routes.post("/login", authLoginValidator, AuthController.login)
+routes.post("/login", authLoginValidator, AuthController.login);
+
+
+//-------------------------------------------------------------------------------------------------------------------------
+//Rota de dashboards
+routes.post("/dashboard/pacientes", DashboardController.pacientes);
+routes.post("/dashboard/atendimentos", DashboardController.atendimentos);
+routes.post("/dashboard/psicologos", DashboardController.psicologos);
+routes.post("/dashboard/media", DashboardController.media);
 
 
 // Necessário para que o arquivo do controller receba as rotas
