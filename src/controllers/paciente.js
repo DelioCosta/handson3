@@ -40,7 +40,13 @@ const PacienteController = {
   update: async (req, res) => {
     const { id } = req.params;
     const { nome, email, idade } = req.body;
+    const paciente = await Paciente.findByPk(id);
 
+    if(!paciente){
+      res.status(404).json({
+        message: "Id não encontrado",
+      });
+    } else {  
     const pacienteAtualizado = await Paciente.update(
       {
         id,
@@ -56,6 +62,8 @@ const PacienteController = {
     );
 
     res.json("Paciente atualizado");
+    }
+
   },
 
   // Remoção
@@ -67,7 +75,9 @@ const PacienteController = {
       res.status(404).json({
         message: "Id não encontrado",
       });
-    } else {
+    } 
+    
+    try {
       await Paciente.destroy({
         where: {
           id,
@@ -75,6 +85,11 @@ const PacienteController = {
       });
 
       res.status(204).send("");
+    } catch (error) {
+      console.log(error.message);
+      res
+        .status(500)
+        .json({ error: "Não é possível excluir paciente com registro de atendimento" });
     }
   },
 };
