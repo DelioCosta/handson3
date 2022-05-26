@@ -18,7 +18,7 @@ const PacienteController = {
       idade,
     });
 
-    res.json(novoPaciente);
+    res.status(201).json(novoPaciente);
   },
 
   // Obter item específico
@@ -46,7 +46,8 @@ const PacienteController = {
       res.status(404).json({
         message: "Id não encontrado",
       });
-    } else {  
+    }
+
     const pacienteAtualizado = await Paciente.update(
       {
         id,
@@ -61,8 +62,9 @@ const PacienteController = {
       }
     );
 
-    res.json("Paciente atualizado");
-    }
+    const jsonPacienteAtualizado = await Paciente.findByPk(id);
+    res.json(jsonPacienteAtualizado);
+    
 
   },
 

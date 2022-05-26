@@ -4,7 +4,9 @@ const AtendimentoController = {
   // Listar todos
   index: async (req, res) => {
     const listaDeAtendimentos = await Atendimento.findAll({
-      include: [Paciente, Psicologo],
+      include: [Paciente, {
+        model: Psicologo, 
+        attributes: { exclude: ['senha'] }}]
     });
     res.json(listaDeAtendimentos);
   },
@@ -27,7 +29,7 @@ const AtendimentoController = {
         paciente_id,
       });
 
-      res.json(novoAtendimento);
+      res.status(201).json(novoAtendimento);
     } catch (error) {
       console.log(error.message);
       res
@@ -41,7 +43,9 @@ const AtendimentoController = {
     const { id } = req.params;
 
     const atendimento = await Atendimento.findByPk(id, {
-      include: [Paciente, Psicologo],
+      include: [Paciente, {
+        model: Psicologo, 
+        attributes: { exclude: ['senha'] }}]
     });
 
     if (atendimento) {

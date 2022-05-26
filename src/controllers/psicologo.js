@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const PsicologoController = {
   // Listar todos
   index: async (req, res) => {
-    const listaDePsicologos = await Psicologo.findAll();
+    const listaDePsicologos = await Psicologo.findAll({attributes: {exclude: ['senha']}});
     res.json(listaDePsicologos);
   },
 
@@ -30,11 +30,11 @@ const PsicologoController = {
   show: async (req, res) => {
     const { id } = req.params;
 
-    const psicologo = await Psicologo.findByPk(id);
-
-    if (psicologo) {
+    const psicologo = await Psicologo.findByPk(id, {attributes: {exclude: ['senha']}});
+    
+    if (psicologo) {  
       return res.json(psicologo);
-    }
+    };
 
     res.status(404).json({
       message: "Id não encontrado",
@@ -70,8 +70,10 @@ const PsicologoController = {
         },
       }
     );
+    //pesquisa o psicologo atualizado para retornar as novas informações
+    const jsonPsicologoAtualizado = await Psicologo.findByPk(id, {attributes: {exclude: ['senha']}});
 
-    res.json("Id atualizado");
+    res.json(jsonPsicologoAtualizado);
   },
 
   // Remoção
