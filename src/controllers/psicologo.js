@@ -45,9 +45,16 @@ const PsicologoController = {
   update: async (req, res) => {
     const { id } = req.params;
     const { nome, email, senha, apresentacao } = req.body;
+    const psicologo = await Psicologo.findByPk(id);
 
     //aplica bcrypt na senha
     const novaSenha = bcrypt.hashSync(senha, 10);
+
+    if(!psicologo){
+      res.status(404).json({
+        message: "Id não encontrado",
+      });
+    };
 
     const psicologoAtualizado = await Psicologo.update(
       {
@@ -76,7 +83,9 @@ const PsicologoController = {
       res.status(404).json({
         message: "Id não encontrado",
       });
-    } else {
+    } 
+    
+    try {
       await Psicologo.destroy({
         where: {
           id,
@@ -84,6 +93,11 @@ const PsicologoController = {
       });
 
       res.status(204).send("");
+    } catch (error) {
+      console.log(error.message);
+      res
+        .status(500)
+        .json({ error: "Não é possível excluir psicólogo com registro de atendimento" });
     }
   },
 };
